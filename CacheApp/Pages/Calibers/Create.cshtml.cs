@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using CacheApp.Authorization;
 using CacheApp.Data;
 using CacheApp.Models;
 
@@ -39,6 +40,14 @@ namespace CacheApp.Pages.Calibers
             }
 
             Caliber.UserId = UserManager.GetUserId(User);
+            
+            var isAuthorized = await AuthorizationService.AuthorizeAsync(
+                                                      User, Caliber,
+                                                      Operations.Create);
+            if (!isAuthorized.Succeeded)
+            {
+                return Forbid();
+            }
 
             _context.Caliber.Add(Caliber);
             await _context.SaveChangesAsync();

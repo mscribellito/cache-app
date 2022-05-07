@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using CacheApp.Authorization;
 using CacheApp.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +15,12 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(options => {
+    options.Conventions.AuthorizeFolder("/Calibers");
+    options.Conventions.AuthorizeFolder("/Firearms");
+});
+
+builder.Services.AddScoped<IAuthorizationHandler, ResourceIsOwnerAuthorizationHandler>();
 
 var app = builder.Build();
 

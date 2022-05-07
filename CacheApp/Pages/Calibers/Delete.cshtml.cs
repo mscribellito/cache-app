@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using CacheApp.Authorization;
 using CacheApp.Data;
 using CacheApp.Models;
 
@@ -38,6 +39,15 @@ namespace CacheApp.Pages.Calibers
             {
                 return NotFound();
             }
+            
+            var isAuthorized = await AuthorizationService.AuthorizeAsync(
+                                                      User, Caliber,
+                                                      Operations.Delete);
+            if (!isAuthorized.Succeeded)
+            {
+                return Forbid();
+            }
+
             return Page();
         }
 
@@ -49,6 +59,14 @@ namespace CacheApp.Pages.Calibers
             }
 
             Caliber = await _context.Caliber.FindAsync(id);
+            
+            var isAuthorized = await AuthorizationService.AuthorizeAsync(
+                                                      User, Caliber,
+                                                      Operations.Delete);
+            if (!isAuthorized.Succeeded)
+            {
+                return Forbid();
+            }
 
             if (Caliber != null)
             {

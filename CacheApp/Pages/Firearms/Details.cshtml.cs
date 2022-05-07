@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using CacheApp.Authorization;
 using CacheApp.Data;
 using CacheApp.Models;
 
@@ -38,6 +39,15 @@ namespace CacheApp.Pages.Firearms
             {
                 return NotFound();
             }
+            
+            var isAuthorized = await AuthorizationService.AuthorizeAsync(
+                                                      User, Firearm,
+                                                      Operations.Read);
+            if (!isAuthorized.Succeeded)
+            {
+                return Forbid();
+            }
+
             return Page();
         }
     }
