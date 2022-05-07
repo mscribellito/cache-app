@@ -1,4 +1,4 @@
-@page
+@page "{currentpage=1}/{sortby=DateAcquired}"
 @model CacheApp.Pages.Firearms.IndexModel
 
 @{
@@ -14,25 +14,35 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Firearm[0].ManufacturerImporter)
+                <a asp-page="Index" class="sort-link" asp-route-sortby="ManufacturerImporter">
+                @Html.DisplayNameFor(model => model.Firearms[0].ManufacturerImporter)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Firearm[0].Model)
+                <a asp-page="Index" class="sort-link" asp-route-sortby="Model">
+                @Html.DisplayNameFor(model => model.Firearms[0].Model)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Firearm[0].Type)
+                <a asp-page="Index" class="sort-link" asp-route-sortby="Type">
+                @Html.DisplayNameFor(model => model.Firearms[0].Type)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Firearm[0].Caliber)
+                <a asp-page="Index" class="sort-link" asp-route-sortby="Caliber">
+                @Html.DisplayNameFor(model => model.Firearms[0].Caliber)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Firearm[0].Status)
+                <a asp-page="Index" class="sort-link" asp-route-sortby="Status">
+                @Html.DisplayNameFor(model => model.Firearms[0].Status)
+                </a>
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Firearm) {
+@foreach (var item in Model.Firearms) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ManufacturerImporter)
@@ -58,3 +68,39 @@
 }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.Firearms.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Firearms.HasNextPage ? "disabled" : "";
+}
+
+<nav aria-label="Firearm pagination">
+  <ul class="pagination justify-content-center">
+    <li class="page-item @prevDisabled">
+        <a asp-page="./Index"
+            asp-all-route-data="@(new Dictionary<string, string>{{ "currentpage", (Model.Firearms.PageIndex - 1).ToString() },{ "sortby", Model.SortBy }})"
+            class="page-link" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+        </a>
+    </li>
+    @for (var i = 1; i <= Model.Firearms.TotalPages; i++)
+        {
+            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                <a asp-page="./Index"
+                    asp-all-route-data="@(new Dictionary<string, string>{{ "currentpage", (i).ToString() },{ "sortby", Model.SortBy }})"
+                    class="page-link">
+                    @i
+                </a>
+            </li>
+        }
+    <li class="page-item @nextDisabled">
+        <a asp-page="./Index"
+            asp-all-route-data="@(new Dictionary<string, string>{{ "currentpage", (Model.Firearms.PageIndex + 1).ToString() },{ "sortby", Model.SortBy }})"
+            class="page-link" aria-label="Next">
+            <span class="sr-only">Next</span>
+            <span aria-hidden="true">&raquo;</span>
+        </a>
+    </li>
+  </ul>
+</nav>

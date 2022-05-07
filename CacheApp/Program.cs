@@ -22,6 +22,9 @@ builder.Services.AddRazorPages(options => {
 
 builder.Services.AddScoped<IAuthorizationHandler, ResourceIsOwnerAuthorizationHandler>();
 
+// https://www.npgsql.org/efcore/release-notes/6.0.html?tabs=annotations#timestamp-rationalization-and-improvements
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

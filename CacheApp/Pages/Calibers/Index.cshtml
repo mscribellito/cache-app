@@ -1,4 +1,4 @@
-@page
+@page "{currentpage=1}/{sortby=Name}"
 @model CacheApp.Pages.Calibers.IndexModel
 
 @{
@@ -14,13 +14,15 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Caliber[0].Name)
+                <a asp-page="Index" class="sort-link" asp-route-sortby="Name">
+                @Html.DisplayNameFor(model => model.Calibers[0].Name)
+                </a>
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Caliber) {
+@foreach (var item in Model.Calibers) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -34,3 +36,39 @@
 }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.Calibers.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Calibers.HasNextPage ? "disabled" : "";
+}
+
+<nav aria-label="Firearm pagination">
+  <ul class="pagination justify-content-center">
+    <li class="page-item @prevDisabled">
+        <a asp-page="./Index"
+            asp-all-route-data="@(new Dictionary<string, string>{{ "currentpage", (Model.Calibers.PageIndex - 1).ToString() },{ "sortby", Model.SortBy }})"
+            class="page-link" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+        </a>
+    </li>
+    @for (var i = 1; i <= Model.Calibers.TotalPages; i++)
+        {
+            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                <a asp-page="./Index"
+                    asp-all-route-data="@(new Dictionary<string, string>{{ "currentpage", (i).ToString() },{ "sortby", Model.SortBy }})"
+                    class="page-link">
+                    @i
+                </a>
+            </li>
+        }
+    <li class="page-item @nextDisabled">
+        <a asp-page="./Index"
+            asp-all-route-data="@(new Dictionary<string, string>{{ "currentpage", (Model.Calibers.PageIndex + 1).ToString() },{ "sortby", Model.SortBy }})"
+            class="page-link" aria-label="Next">
+            <span class="sr-only">Next</span>
+            <span aria-hidden="true">&raquo;</span>
+        </a>
+    </li>
+  </ul>
+</nav>

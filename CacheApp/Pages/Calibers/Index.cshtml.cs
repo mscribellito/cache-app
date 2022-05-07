@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -22,14 +23,27 @@ namespace CacheApp.Pages.Calibers
         {
         }
 
-        public IList<Caliber> Caliber { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int CurrentPage { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string SortBy { get; set; } 
+
+        public const int PageSize = 20;
+
+        public PaginatedList<Caliber> Calibers { get; set; }
 
         public async Task OnGetAsync()
         {
             var currentUserId = UserManager.GetUserId(User);
-            Caliber = await _context.Caliber
+
+            IQueryable<Caliber> calibers = from c in _context.Caliber
                 .Where(c => c.UserId == currentUserId)
-                .ToListAsync();
+                .OrderBy(SortBy + " descending")
+                select c;
+
+            Calibers = await PaginatedList<Caliber>.CreateAsync(
+                calibers.AsNoTracking(), CurrentPage, PageSize);
         }
     }
 }
