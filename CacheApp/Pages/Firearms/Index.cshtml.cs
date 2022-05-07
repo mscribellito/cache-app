@@ -38,6 +38,7 @@ namespace CacheApp.Pages.Firearms
             var currentUserId = UserManager.GetUserId(User);
 
             IQueryable<Firearm> firearms = from f in _context.Firearm
+                .Include(f => f.Caliber)
                 .Where(f => f.UserId == currentUserId)
                 .OrderBy(SortBy + " descending")
                 select f;
