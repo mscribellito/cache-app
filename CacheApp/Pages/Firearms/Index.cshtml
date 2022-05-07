@@ -20,34 +20,13 @@
                 @Html.DisplayNameFor(model => model.Firearm[0].Model)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Firearm[0].SerialNumber)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Firearm[0].Type)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Firearm[0].Caliber)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Firearm[0].Cost)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Firearm[0].DateAcquired)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Firearm[0].PurchaseLocation)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Firearm[0].Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Firearm[0].DateSold)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Firearm[0].SoldTransferredTo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Firearm[0].Notes)
             </th>
             <th></th>
         </tr>
@@ -62,34 +41,13 @@
                 @Html.DisplayFor(modelItem => item.Model)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SerialNumber)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Type)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Caliber.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Cost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateAcquired)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PurchaseLocation)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateSold)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SoldTransferredTo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Notes)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
