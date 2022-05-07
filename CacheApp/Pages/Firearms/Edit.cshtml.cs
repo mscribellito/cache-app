@@ -50,7 +50,9 @@ namespace CacheApp.Pages.Firearms
                 return Forbid();
             }
 
-            ViewData["CaliberId"] = new SelectList(_context.Set<Caliber>(), "Id", "Name");
+            var currentUserId = UserManager.GetUserId(User);
+            ViewData["CaliberId"] = new SelectList(_context.Set<Caliber>()
+                .Where(c => c.UserId == currentUserId), "Id", "Name");
             return Page();
         }
 
