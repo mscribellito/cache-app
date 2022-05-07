@@ -14,11 +14,7 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Caliber.Id" />
-            <div class="form-group">
-                <label asp-for="Caliber.Name" class="control-label"></label>
-                <input asp-for="Caliber.Name" class="form-control" />
-                <span asp-validation-for="Caliber.Name" class="text-danger"></span>
-            </div>
+            <partial name="_Form" for="Caliber" />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

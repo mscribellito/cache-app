@@ -13,65 +13,7 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Firearm.CaliberId" class="control-label"></label>
-                <select asp-for="Firearm.CaliberId" class ="form-control" asp-items="ViewBag.CaliberId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Firearm.ManufacturerImporter" class="control-label"></label>
-                <input asp-for="Firearm.ManufacturerImporter" class="form-control" />
-                <span asp-validation-for="Firearm.ManufacturerImporter" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Firearm.Model" class="control-label"></label>
-                <input asp-for="Firearm.Model" class="form-control" />
-                <span asp-validation-for="Firearm.Model" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Firearm.SerialNumber" class="control-label"></label>
-                <input asp-for="Firearm.SerialNumber" class="form-control" />
-                <span asp-validation-for="Firearm.SerialNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Firearm.Type" class="control-label"></label>
-                <select asp-for="Firearm.Type" class="form-control"></select>
-                <span asp-validation-for="Firearm.Type" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Firearm.Cost" class="control-label"></label>
-                <input asp-for="Firearm.Cost" class="form-control" />
-                <span asp-validation-for="Firearm.Cost" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Firearm.DateAcquired" class="control-label"></label>
-                <input asp-for="Firearm.DateAcquired" class="form-control" />
-                <span asp-validation-for="Firearm.DateAcquired" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Firearm.PurchaseLocation" class="control-label"></label>
-                <input asp-for="Firearm.PurchaseLocation" class="form-control" />
-                <span asp-validation-for="Firearm.PurchaseLocation" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Firearm.Status" class="control-label"></label>
-                <input asp-for="Firearm.Status" class="form-control" />
-                <span asp-validation-for="Firearm.Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Firearm.DateSold" class="control-label"></label>
-                <input asp-for="Firearm.DateSold" class="form-control" />
-                <span asp-validation-for="Firearm.DateSold" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Firearm.SoldTransferredTo" class="control-label"></label>
-                <input asp-for="Firearm.SoldTransferredTo" class="form-control" />
-                <span asp-validation-for="Firearm.SoldTransferredTo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Firearm.Notes" class="control-label"></label>
-                <input asp-for="Firearm.Notes" class="form-control" />
-                <span asp-validation-for="Firearm.Notes" class="text-danger"></span>
-            </div>
+            <partial name="_Form" for="Firearm" />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

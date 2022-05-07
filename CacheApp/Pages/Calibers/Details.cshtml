@@ -10,14 +10,7 @@
 <div>
     <h4>Caliber</h4>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Caliber.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Caliber.Name)
-        </dd>
-    </dl>
+    <partial name="_Detail" model="@Model.Caliber" />
 </div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Caliber.Id">Edit</a> |
