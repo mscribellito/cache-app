@@ -4,10 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace CacheApp.Models
 {
 
-    public class Firearm : IOwnable
+    public class Firearm : BaseEntity, IOwnable
     {
 
         public Guid Id { get; set; }
+
+        public string? UserId { get; set; }
 
         public Guid CaliberId { get; set; }
 

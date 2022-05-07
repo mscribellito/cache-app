@@ -26,3 +26,8 @@ dotnet ef database update
 dotnet ef migrations add AddUserIdToFirearmAndCaliber
 dotnet ef database update 
 ```
+
+```
+dotnet ef migrations add AddCreatedAndUpdatedToFirearmAndCaliber
+dotnet ef database update 
+```

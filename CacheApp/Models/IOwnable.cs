@@ -3,7 +3,7 @@ using System;
 namespace CacheApp.Models
 {
 
-    public class IOwnable
+    public interface IOwnable
     {
 
         // user ID from AspNetUser table.
