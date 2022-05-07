@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,13 +14,13 @@ using CacheApp.Models;
 
 namespace CacheApp.Pages.Firearms
 {
-    public class EditModel : PageModel
+    public class EditModel : BasePageModel
     {
-        private readonly CacheApp.Data.ApplicationDbContext _context;
-
-        public EditModel(CacheApp.Data.ApplicationDbContext context)
+        public EditModel(CacheApp.Data.ApplicationDbContext context,
+            IAuthorizationService authorizationService,
+            UserManager<IdentityUser> userManager)
+            : base(context, authorizationService, userManager)
         {
-            _context = context;
         }
 
         [BindProperty]
@@ -38,7 +40,7 @@ namespace CacheApp.Pages.Firearms
             {
                 return NotFound();
             }
-           ViewData["CaliberId"] = new SelectList(_context.Set<Caliber>(), "Id", "Name");
+            ViewData["CaliberId"] = new SelectList(_context.Set<Caliber>(), "Id", "Name");
             return Page();
         }
 
@@ -52,6 +54,8 @@ namespace CacheApp.Pages.Firearms
             }
 
             _context.Attach(Firearm).State = EntityState.Modified;
+
+            Firearm.UserId = UserManager.GetUserId(User);
 
             try
             {

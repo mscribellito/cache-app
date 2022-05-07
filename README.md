@@ -21,3 +21,8 @@ dotnet-aspnet-codegenerator razorpage -m Caliber -dc ApplicationDbContext -udl -
 dotnet ef migrations add CreateFirearmAndCaliberSchema
 dotnet ef database update 
 ```
+
+```
+dotnet ef migrations add AddUserIdToFirearmAndCaliber
+dotnet ef database update 
+```

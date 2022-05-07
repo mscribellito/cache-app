@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace CacheApp.Models
 {
 
-    public class Firearm
+    public class Firearm : IOwnable
     {
 
         public Guid Id { get; set; }

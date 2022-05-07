@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -11,21 +13,24 @@ using CacheApp.Models;
 
 namespace CacheApp.Pages.Firearms
 {
-    public class IndexModel : PageModel
+    public class IndexModel : BasePageModel
     {
-        private readonly CacheApp.Data.ApplicationDbContext _context;
-
-        public IndexModel(CacheApp.Data.ApplicationDbContext context)
+        public IndexModel(CacheApp.Data.ApplicationDbContext context,
+            IAuthorizationService authorizationService,
+            UserManager<IdentityUser> userManager)
+            : base(context, authorizationService, userManager)
         {
-            _context = context;
         }
 
-        public IList<Firearm> Firearm { get;set; }
+        public IList<Firearm> Firearm { get; set; }
 
         public async Task OnGetAsync()
         {
+            var currentUserId = UserManager.GetUserId(User);
             Firearm = await _context.Firearm
-                .Include(f => f.Caliber).ToListAsync();
+                .Include(f => f.Caliber)
+                .Where(f => f.UserId == currentUserId)
+                .ToListAsync();
         }
     }
 }

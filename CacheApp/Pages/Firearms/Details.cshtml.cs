@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -11,13 +13,13 @@ using CacheApp.Models;
 
 namespace CacheApp.Pages.Firearms
 {
-    public class DetailsModel : PageModel
+    public class DetailsModel : BasePageModel
     {
-        private readonly CacheApp.Data.ApplicationDbContext _context;
-
-        public DetailsModel(CacheApp.Data.ApplicationDbContext context)
+        public DetailsModel(CacheApp.Data.ApplicationDbContext context,
+            IAuthorizationService authorizationService,
+            UserManager<IdentityUser> userManager)
+            : base(context, authorizationService, userManager)
         {
-            _context = context;
         }
 
         public Firearm Firearm { get; set; }

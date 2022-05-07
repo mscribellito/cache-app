@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 namespace CacheApp.Models
 {
 
-    public class Caliber
+    public class Caliber : IOwnable
     {
 
         public Guid Id { get; set; }
@@ -11,7 +11,7 @@ namespace CacheApp.Models
         [Required]
         [Display(Name = "Caliber")]
         public string Name { get; set; }
-        
+
     }
 
 }
